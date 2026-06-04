@@ -122,3 +122,39 @@
     position: static;
   }
 }
+
+
+/* Ajustes de quantidade e legibilidade */
+.quantityInputWrap {
+  display: grid;
+  gap: 5px;
+}
+
+.quantityInputWrap small {
+  color: var(--muted);
+  font-weight: 800;
+  font-size: 12px;
+  padding-left: 4px;
+}
+
+.pricingRow {
+  grid-template-columns: 1.2fr .72fr .82fr .9fr .75fr auto;
+}
+
+.pricingRow input::placeholder {
+  font-size: 13px;
+}
+
+.pricingHead span {
+  font-size: 13px;
+}
+
+@media(max-width:980px){
+  .pricingTable {
+    min-width: 880px;
+  }
+
+  .pricingRow {
+    grid-template-columns: 1.2fr .75fr .85fr 1fr .8fr auto;
+  }
+}

@@ -47,6 +47,19 @@ function number(value) {
   return Number.isFinite(n) ? n : 0;
 }
 
+function cleanNumber(value) {
+  const n = Number(value);
+  if (!Number.isFinite(n)) return '0';
+  return new Intl.NumberFormat('pt-BR', {
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 3
+  }).format(n);
+}
+
+function formatQuantity(value, unit = '') {
+  return `${cleanNumber(value)} ${unit}`.trim();
+}
+
 function costPerUnit(ingredient) {
   const quantity = number(ingredient.package_quantity);
   const cost = number(ingredient.package_cost);
@@ -518,7 +531,7 @@ export default function AdminApp() {
                   <div className="itemsHeader">
                     <div>
                       <h3>Ingredientes da receita</h3>
-                      <p className="muted">Selecione o ingrediente e informe a quantidade usada.</p>
+                      <p className="muted">Selecione o ingrediente e informe a quantidade usada. O custo será calculado automaticamente.</p>
                     </div>
                     <button className="ghostBtn smallBtn" type="button" onClick={addRecipeItem}>+ Adicionar</button>
                   </div>
@@ -527,8 +540,8 @@ export default function AdminApp() {
                     <div className="pricingRow pricingHead">
                       <span>Ingrediente</span>
                       <span>Custo embalagem</span>
-                      <span>Qtd. embalagem</span>
-                      <span>Qtd. usada</span>
+                      <span>Quantidade embalagem</span>
+                      <span>Quantidade usada</span>
                       <span>Quanto custou</span>
                       <span>Ação</span>
                     </div>
@@ -545,9 +558,12 @@ export default function AdminApp() {
                           </select>
 
                           <strong>{ing ? money(ing.package_cost) : '-'}</strong>
-                          <strong>{ing ? `${ing.package_quantity} ${ing.package_unit}` : '-'}</strong>
+                          <strong>{ing ? formatQuantity(ing.package_quantity, ing.package_unit) : '-'}</strong>
 
-                          <input type="number" step="0.001" placeholder="Qtd." value={item.quantity_used} onChange={(e) => updateRecipeItem(index, 'quantity_used', e.target.value)} />
+                          <div className="quantityInputWrap">
+                            <input type="number" step="0.001" placeholder="Quantidade usada" value={item.quantity_used} onChange={(e) => updateRecipeItem(index, 'quantity_used', e.target.value)} />
+                            <small>{ing ? `em ${ing.package_unit}` : 'selecione o ingrediente'}</small>
+                          </div>
 
                           <div className="itemCost">{money(itemCost)}</div>
                           <button className="tableBtn danger" type="button" onClick={() => removeRecipeItem(index)}>Remover</button>
@@ -692,7 +708,7 @@ function IngredientsTable({ ingredients, onEdit, onDelete }) {
           {ingredients.map((item) => (
             <tr key={item.id}>
               <td>{item.name}</td>
-              <td>{item.package_quantity} {item.package_unit}</td>
+              <td>{formatQuantity(item.package_quantity, item.package_unit)}</td>
               <td>{money(item.package_cost)}</td>
               <td>{money(costPerUnit(item))} / {item.package_unit}</td>
               <td><button className="tableBtn" onClick={() => onEdit(item)}>Editar</button><button className="tableBtn danger" onClick={() => onDelete(item.id)}>Apagar</button></td>

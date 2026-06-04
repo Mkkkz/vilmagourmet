@@ -45,3 +45,13 @@ Esta versão melhora apenas a tela de Receitas/Produtos:
 - tabela de ingredientes parecida com planilha;
 - bloco "Contas Finais";
 - preço final por unidade mais claro.
+
+
+## Ajustes de quantidade
+
+Esta versão ajusta apenas detalhes de usabilidade:
+- remove visual de números com `.000`;
+- mostra quantidades como `1000 g`, `500 ml`, `20 un`;
+- melhora o campo de quantidade usada;
+- mostra a unidade do ingrediente no campo de uso;
+- melhora a tabela de precificação.
