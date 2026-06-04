@@ -747,12 +747,13 @@ function OrdersTable({ orders, onEdit, onDelete }) {
   return (
     <div className="responsiveTable">
       <table>
-        <thead><tr><th>Data</th><th>Cliente</th><th>Produto</th><th>Qtd.</th><th>Total</th><th>Status</th><th>Ações</th></tr></thead>
+        <thead><tr><th>Data</th><th>Cliente</th><th>Contato/Endereço</th><th>Produto</th><th>Qtd.</th><th>Total</th><th>Status</th><th>Ações</th></tr></thead>
         <tbody>
           {orders.map((order) => (
             <tr key={order.id}>
               <td>{(order.order_date || '').slice(0, 10)}</td>
               <td>{order.client_name}</td>
+              <td><div className="orderContact">{order.customer_phone && <b>{order.customer_phone}</b>}{order.customer_address && <span>{order.customer_address}, nº {order.customer_number} - {order.customer_neighborhood}</span>}{order.customer_complement && <small>{order.customer_complement}</small>}{order.payment_status && <small>Pagamento: {order.payment_status}</small>}</div></td>
               <td>{order.product_name}</td>
               <td>{order.quantity}</td>
               <td>{money(order.total_price)}</td>

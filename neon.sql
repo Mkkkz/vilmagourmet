@@ -62,3 +62,14 @@ create index if not exists ingredients_name_idx on ingredients(name);
 create index if not exists recipes_name_idx on recipes(name);
 create index if not exists recipe_items_recipe_idx on recipe_items(recipe_id);
 create index if not exists orders_order_date_idx on orders(order_date desc);
+
+-- Atualização para site público + checkout Mercado Pago
+alter table orders add column if not exists customer_phone text default '';
+alter table orders add column if not exists customer_address text default '';
+alter table orders add column if not exists customer_number text default '';
+alter table orders add column if not exists customer_neighborhood text default '';
+alter table orders add column if not exists customer_complement text default '';
+alter table orders add column if not exists delivery_fee numeric(12,2) not null default 0;
+alter table orders add column if not exists payment_status text default 'Pendente';
+alter table orders add column if not exists mp_payment_id text default '';
+create index if not exists orders_mp_payment_id_idx on orders(mp_payment_id);

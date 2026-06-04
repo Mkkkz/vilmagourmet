@@ -55,3 +55,29 @@ Esta versão ajusta apenas detalhes de usabilidade:
 - melhora o campo de quantidade usada;
 - mostra a unidade do ingrediente no campo de uso;
 - melhora a tabela de precificação.
+
+
+## Páginas adicionadas
+- `/` página principal
+- `/produtos` cardápio
+- `/checkout` compra com dados obrigatórios e Pix automático
+- `/pedido` confirmação simples
+- `/fotos` galeria
+- `/admin` painel administrativo
+
+
+## Banco
+Se o banco já existe, rode `neon_update_site.sql` no Neon.
+Se for banco novo, rode `neon.sql`.
+
+
+## Versão WhatsApp simples
+
+Esta versão remove o Pix automático/Mercado Pago e deixa a compra mais simples:
+
+- `/` página principal
+- `/produtos` produtos com botão para WhatsApp
+- `/fotos` galeria
+- `/admin` painel administrativo
+
+O cliente escolhe um produto e clica em **Pedir pelo WhatsApp**.
