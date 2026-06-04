@@ -473,50 +473,133 @@ export default function AdminApp() {
         {tab === 'receitas' && (
           <div className="panel">
             <h2>{editingRecipe ? 'Editar receita/produto' : 'Nova receita/produto'}</h2>
+            <p className="muted">Essa área funciona como uma calculadora de precificação mais fácil que planilha.</p>
 
             <form onSubmit={saveRecipe}>
-              <div className="formGrid">
-                <input placeholder="Nome do produto/receita" value={recipeForm.name} onChange={(e) => setRecipeForm({ ...recipeForm, name: e.target.value })} required />
-                <input type="number" step="0.01" placeholder="Custos extras %" value={recipeForm.extra_percent} onChange={(e) => setRecipeForm({ ...recipeForm, extra_percent: e.target.value })} />
-                <input type="number" step="0.01" placeholder="Multiplicador lucro/mão de obra" value={recipeForm.profit_multiplier} onChange={(e) => setRecipeForm({ ...recipeForm, profit_multiplier: e.target.value })} />
-                <input type="number" step="0.01" placeholder="Rendimento/unidades" value={recipeForm.yield_quantity} onChange={(e) => setRecipeForm({ ...recipeForm, yield_quantity: e.target.value })} />
-                <input type="number" step="0.01" placeholder="Embalagem individual" value={recipeForm.individual_package_cost} onChange={(e) => setRecipeForm({ ...recipeForm, individual_package_cost: e.target.value })} />
-                <input type="number" step="0.01" placeholder="Preço de venda manual/opcional" value={recipeForm.sale_price} onChange={(e) => setRecipeForm({ ...recipeForm, sale_price: e.target.value })} />
-                <input className="wide" placeholder="Observação" value={recipeForm.notes} onChange={(e) => setRecipeForm({ ...recipeForm, notes: e.target.value })} />
+              <div className="recipeFormNamed">
+                <label>
+                  Nome do produto/receita
+                  <input placeholder="Ex: Bolo de chocolate" value={recipeForm.name} onChange={(e) => setRecipeForm({ ...recipeForm, name: e.target.value })} required />
+                </label>
+
+                <label>
+                  Custos extras (%)
+                  <input type="number" step="0.01" placeholder="Ex: 25" value={recipeForm.extra_percent} onChange={(e) => setRecipeForm({ ...recipeForm, extra_percent: e.target.value })} />
+                </label>
+
+                <label>
+                  Multiplicador de lucro/mão de obra
+                  <input type="number" step="0.01" placeholder="Ex: 3" value={recipeForm.profit_multiplier} onChange={(e) => setRecipeForm({ ...recipeForm, profit_multiplier: e.target.value })} />
+                </label>
+
+                <label>
+                  Rendimento / quantas unidades
+                  <input type="number" step="0.01" placeholder="Ex: 12" value={recipeForm.yield_quantity} onChange={(e) => setRecipeForm({ ...recipeForm, yield_quantity: e.target.value })} />
+                </label>
+
+                <label>
+                  Preço da embalagem individual
+                  <input type="number" step="0.01" placeholder="Ex: 1.50" value={recipeForm.individual_package_cost} onChange={(e) => setRecipeForm({ ...recipeForm, individual_package_cost: e.target.value })} />
+                </label>
+
+                <label>
+                  Preço de venda manual/opcional
+                  <input type="number" step="0.01" placeholder="Se deixar vazio, usa o sugerido" value={recipeForm.sale_price} onChange={(e) => setRecipeForm({ ...recipeForm, sale_price: e.target.value })} />
+                </label>
+
+                <label className="wide">
+                  Observação
+                  <input placeholder="Anotações sobre essa receita" value={recipeForm.notes} onChange={(e) => setRecipeForm({ ...recipeForm, notes: e.target.value })} />
+                </label>
               </div>
 
-              <div className="itemsBox">
-                <div className="itemsHeader">
-                  <h3>Ingredientes usados</h3>
-                  <button className="ghostBtn smallBtn" type="button" onClick={addRecipeItem}>+ Adicionar</button>
+              <div className="pricingLayout">
+                <div className="itemsBox">
+                  <div className="itemsHeader">
+                    <div>
+                      <h3>Ingredientes da receita</h3>
+                      <p className="muted">Selecione o ingrediente e informe a quantidade usada.</p>
+                    </div>
+                    <button className="ghostBtn smallBtn" type="button" onClick={addRecipeItem}>+ Adicionar</button>
+                  </div>
+
+                  <div className="pricingTable">
+                    <div className="pricingRow pricingHead">
+                      <span>Ingrediente</span>
+                      <span>Custo embalagem</span>
+                      <span>Qtd. embalagem</span>
+                      <span>Qtd. usada</span>
+                      <span>Quanto custou</span>
+                      <span>Ação</span>
+                    </div>
+
+                    {recipeForm.items.map((item, index) => {
+                      const ing = ingredients.find((i) => i.id === item.ingredient_id);
+                      const itemCost = ing ? costPerUnit(ing) * number(item.quantity_used) : 0;
+
+                      return (
+                        <div className="pricingRow" key={index}>
+                          <select value={item.ingredient_id} onChange={(e) => updateRecipeItem(index, 'ingredient_id', e.target.value)}>
+                            <option value="">Selecione</option>
+                            {ingredients.map((ingredient) => <option key={ingredient.id} value={ingredient.id}>{ingredient.name}</option>)}
+                          </select>
+
+                          <strong>{ing ? money(ing.package_cost) : '-'}</strong>
+                          <strong>{ing ? `${ing.package_quantity} ${ing.package_unit}` : '-'}</strong>
+
+                          <input type="number" step="0.001" placeholder="Qtd." value={item.quantity_used} onChange={(e) => updateRecipeItem(index, 'quantity_used', e.target.value)} />
+
+                          <div className="itemCost">{money(itemCost)}</div>
+                          <button className="tableBtn danger" type="button" onClick={() => removeRecipeItem(index)}>Remover</button>
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
 
-                {recipeForm.items.map((item, index) => {
-                  const ing = ingredients.find((i) => i.id === item.ingredient_id);
-                  const itemCost = ing ? costPerUnit(ing) * number(item.quantity_used) : 0;
+                <div className="finalAccounts">
+                  <h3>Contas Finais</h3>
 
-                  return (
-                    <div className="recipeItem" key={index}>
-                      <select value={item.ingredient_id} onChange={(e) => updateRecipeItem(index, 'ingredient_id', e.target.value)}>
-                        <option value="">Selecione o ingrediente</option>
-                        {ingredients.map((ingredient) => <option key={ingredient.id} value={ingredient.id}>{ingredient.name}</option>)}
-                      </select>
+                  <div className="accountLine">
+                    <span>Total custo dos ingredientes</span>
+                    <b>{money(recipeCalc.totalIngredients)}</b>
+                  </div>
 
-                      <input type="number" step="0.001" placeholder="Quantidade usada" value={item.quantity_used} onChange={(e) => updateRecipeItem(index, 'quantity_used', e.target.value)} />
-                      <div className="itemCost">{money(itemCost)}</div>
-                      <button className="tableBtn danger" type="button" onClick={() => removeRecipeItem(index)}>Remover</button>
-                    </div>
-                  );
-                })}
-              </div>
+                  <div className="accountLine">
+                    <span>Adiciona {recipeForm.extra_percent || 0}% de custos extras</span>
+                    <b>{money(recipeCalc.extra)}</b>
+                  </div>
 
-              <div className="calculationBox">
-                <div><span>Total ingredientes</span><b>{money(recipeCalc.totalIngredients)}</b></div>
-                <div><span>Custos extras</span><b>{money(recipeCalc.extra)}</b></div>
-                <div><span>Com extras</span><b>{money(recipeCalc.withExtra)}</b></div>
-                <div><span>Com lucro</span><b>{money(recipeCalc.withProfit)}</b></div>
-                <div><span>Preço por unidade</span><b>{money(recipeCalc.pricePerUnit)}</b></div>
-                <div><span>Preço final sugerido</span><b>{money(recipeCalc.finalPrice)}</b></div>
+                  <div className="accountLine">
+                    <span>Subtotal com custos extras</span>
+                    <b>{money(recipeCalc.withExtra)}</b>
+                  </div>
+
+                  <div className="accountLine">
+                    <span>Multiplica por {recipeForm.profit_multiplier || 0} lucro/mão de obra</span>
+                    <b>{money(recipeCalc.withProfit)}</b>
+                  </div>
+
+                  <div className="accountLine">
+                    <span>Rendimento / quantas unidades</span>
+                    <b>{recipeForm.yield_quantity || 1}</b>
+                  </div>
+
+                  <div className="accountLine">
+                    <span>Preço por unidade</span>
+                    <b>{money(recipeCalc.pricePerUnit)}</b>
+                  </div>
+
+                  <div className="accountLine">
+                    <span>Preço embalagem individual</span>
+                    <b>{money(recipeForm.individual_package_cost)}</b>
+                  </div>
+
+                  <div className="accountLine final">
+                    <span>Preço final de venda por unidade</span>
+                    <b>{money(recipeCalc.finalPrice)}</b>
+                  </div>
+                </div>
               </div>
 
               <button className="primaryBtn" type="submit">{editingRecipe ? 'Salvar edição' : 'Salvar receita'}</button>

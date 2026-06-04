@@ -36,3 +36,12 @@ SESSION_SECRET=
 ## Atenção
 
 Não mande sua `DATABASE_URL` para ninguém, porque ela contém a senha do banco.
+
+
+## Atualização de precificação
+
+Esta versão melhora apenas a tela de Receitas/Produtos:
+- labels explicando cada campo;
+- tabela de ingredientes parecida com planilha;
+- bloco "Contas Finais";
+- preço final por unidade mais claro.
