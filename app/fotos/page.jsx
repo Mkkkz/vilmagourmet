@@ -2,6 +2,7 @@ import Link from 'next/link';
 
 const photos = [
   { src: '/site/vilma-inicio.jpg', title: 'Vilma Natural Gourmet' },
+  { src: '/site/guerreira.jpeg', title: 'A guerreira do iogurte artesanal' },
   { src: '/site/logo-vilma-legivel.jpg', title: 'Logo Vilma Iogurte Artesanal' },
   { src: '/site/historia-completa.jpg', title: 'Minha história' },
   { src: '/site/grego-morango-novo.jpg', title: 'Iogurte grego com geleia de morango' },

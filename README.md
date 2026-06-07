@@ -91,3 +91,8 @@ O cliente escolhe um produto e clica em **Pedir pelo WhatsApp**.
 - Geleia de Morango adicionada: 150g R$12,00 e 250g R$19,00.
 - História ajustada para aparecer inteira, sem cortar.
 - Compra simplificada para WhatsApp normal.
+
+
+## Foto da guerreira adicionada
+
+A foto da guerreira foi adicionada na página `/fotos`.
