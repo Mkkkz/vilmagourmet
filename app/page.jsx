@@ -8,7 +8,7 @@ export default function Home() {
     <main className="sitePage">
       <header className="siteNav">
         <Link href="/" className="siteBrand">
-          <img src="/logo.png" alt="Vilma Natural Gourmet" />
+          <img src="/site/logo-vilma-square.jpg" alt="Vilma Natural Gourmet" />
           <div>
             <strong>Vilma Natural Gourmet</strong>
             <span>Iogurte artesanal</span>
@@ -38,8 +38,20 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="heroImageCard">
-          <img src="/site/guerreira.jpeg" alt="Vilma vendendo iogurte artesanal" />
+        <div className="heroImageCard portraitCard">
+          <img src="/site/vilma-inicio.jpg" alt="Vilma Natural Gourmet" />
+        </div>
+      </section>
+
+      <section className="brandLabelSection">
+        <img src="/site/logo-vilma-legivel.jpg" alt="Vilma Iogurte Artesanal" />
+        <div>
+          <span>Natural Gourmet</span>
+          <h2>Feito com carinho, cuidado e história.</h2>
+          <p>
+            Uma marca artesanal de Campos Altos - MG, criada para entregar sabor,
+            cremosidade e bem-estar em cada potinho.
+          </p>
         </div>
       </section>
 
@@ -88,27 +100,13 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="storySection storyWithPhoto">
-        <div>
+      <section className="storySection storyImageOnly">
+        <div className="sectionHeader storyHeader">
           <span>Quem sou</span>
-          <h2>A minha história</h2>
-          <p>
-            Em 2007, comecei vendendo iogurte artesanal pelas ruas, empurrando meu carrinho
-            debaixo do sol, cheia de sonhos e vontade de vencer. Era simples, mas feito com
-            muito amor.
-          </p>
-          <p>
-            Com o passar dos anos, a vida mudou e parei por um tempo, mas a paixão nunca saiu
-            de dentro de mim. Hoje, depois de tantos anos, o iogurte voltou: mais cremoso,
-            mais especial, na garrafinha e também na versão grega artesanal.
-          </p>
-          <p>
-            Quem experimenta não leva só um produto, leva uma história construída com carinho,
-            persistência e uma paixão que nunca acabou.
-          </p>
+          <h2>Minha história</h2>
+          <p>Uma trajetória de carinho, persistência e paixão pelo iogurte artesanal.</p>
         </div>
-
-        <img src="/site/guerreira.jpeg" alt="Foto da guerreira vendendo iogurte" />
+        <img src="/site/historia-completa.jpg" alt="Minha história Vilma Natural Gourmet" />
       </section>
 
       <footer className="siteFooter">

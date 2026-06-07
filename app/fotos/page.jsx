@@ -1,11 +1,14 @@
 import Link from 'next/link';
 
 const photos = [
-  { src: '/site/guerreira.jpeg', title: 'A guerreira do iogurte artesanal' },
-  { src: '/site/historia.jpeg', title: 'História Vilma Natural Gourmet' },
-  { src: '/site/cardapio.png', title: 'Cardápio de iogurtes artesanais' },
-  { src: '/site/iogurte-tradicional.png', title: 'Iogurte tradicional morango' },
-  { src: '/site/iogurte-grego.png', title: 'Iogurte grego dois amores' }
+  { src: '/site/vilma-inicio.jpg', title: 'Vilma Natural Gourmet' },
+  { src: '/site/logo-vilma-legivel.jpg', title: 'Logo Vilma Iogurte Artesanal' },
+  { src: '/site/historia-completa.jpg', title: 'Minha história' },
+  { src: '/site/grego-morango-novo.jpg', title: 'Iogurte grego com geleia de morango' },
+  { src: '/site/tradicional-morango-novo.jpg', title: 'Iogurte tradicional morango' },
+  { src: '/site/dois-amores-novo.jpg', title: 'Iogurte grego dois amores' },
+  { src: '/site/geleia-morango.jpg', title: 'Geleia de morango artesanal' },
+  { src: '/site/geleia-valores.jpg', title: 'Valores da geleia de morango' }
 ];
 
 export const metadata = {
@@ -17,7 +20,7 @@ export default function FotosPage() {
     <main className="sitePage">
       <header className="siteNav">
         <Link href="/" className="siteBrand">
-          <img src="/logo.png" alt="Vilma Natural Gourmet" />
+          <img src="/site/logo-vilma-square.jpg" alt="Vilma Natural Gourmet" />
           <div>
             <strong>Vilma Natural Gourmet</strong>
             <span>Fotos</span>

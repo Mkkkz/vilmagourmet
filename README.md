@@ -81,3 +81,13 @@ Esta versão remove o Pix automático/Mercado Pago e deixa a compra mais simples
 - `/admin` painel administrativo
 
 O cliente escolhe um produto e clica em **Pedir pelo WhatsApp**.
+
+
+## Ajustes finais das fotos
+
+- Foto inicial trocada pela foto da Vilma sentada.
+- Logo/imagem da marca adicionada de forma legível.
+- Produtos atualizados com imagens recortadas no formato correto.
+- Geleia de Morango adicionada: 150g R$12,00 e 250g R$19,00.
+- História ajustada para aparecer inteira, sem cortar.
+- Compra simplificada para WhatsApp normal.

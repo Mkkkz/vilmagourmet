@@ -10,7 +10,7 @@ export default function ProdutosPage() {
     <main className="sitePage">
       <header className="siteNav">
         <Link href="/" className="siteBrand">
-          <img src="/logo.png" alt="Vilma Natural Gourmet" />
+          <img src="/site/logo-vilma-square.jpg" alt="Vilma Natural Gourmet" />
           <div>
             <strong>Vilma Natural Gourmet</strong>
             <span>Produtos</span>
